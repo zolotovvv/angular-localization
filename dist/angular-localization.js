@@ -20,13 +20,24 @@ angular.module('ngLocalize.InstalledLanguages', [])
         'en': 'en-US'
     });
 angular.module('ngLocalize')
-    .service('locale', ['$injector', '$http', '$q', '$log', '$rootScope', '$window', 'localeConf', 'localeEvents', 'localeSupported', 'localeFallbacks', function ($injector, $http, $q, $log, $rootScope, $window, localeConf, localeEvents, localeSupported, localeFallbacks) {
+    .service('locale', ['$injector', '$http', '$q', '$log', '$rootScope', '$window', 'localeConf', 'localeEvents', 'localeSupported', 'localeFallbacks', 'CacheFactory',
+        function ($injector, $http, $q, $log, $rootScope, $window, localeConf, localeEvents, localeSupported, localeFallbacks, CacheFactory) {
         var TOKEN_REGEX = localeConf.validTokens || new RegExp('^[\\w\\.-]+\\.[\\w\\s\\.-]+\\w(:.*)?$'),
             $html = angular.element(document.body).parent(),
             currentLocale,
             deferrences,
             bundles,
             cookieStore;
+
+        //Инициалидизация кэша
+        CacheFactory('localeCache', {
+            maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes
+            cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour
+            deleteOnExpire: 'aggressive', // Items will be deleted from this cache when they expire
+            storageMode: 'localStorage',
+            storagePrefix: 'bt'
+        });
+
 
         if (localeConf.persistSelection && $injector.has('$cookieStore')) {
             cookieStore = $injector.get('$cookieStore');
@@ -126,7 +137,10 @@ angular.module('ngLocalize')
 
                     url += localeConf.fileExtension;
 
-                    $http.get(url)
+                    $http.get(url,
+                        {
+                            cache: CacheFactory.get('localeCache')
+                        })
                         .success(function (data) {
                             var key,
                                 path = getPath(token);
