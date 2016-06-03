@@ -8,7 +8,7 @@
 ;(function (angular, window, document, undefined) {
     'use strict';
 
-angular.module('ngLocalize.Version', [])
+    angular.module('ngLocalize.Version', ["angular-cache"])
     .constant('localeVer', '1.5.1');
 angular.module('ngLocalize', ['ngSanitize', 'ngLocalize.Config', 'ngLocalize.Events', 'ngLocalize.InstalledLanguages']);
 

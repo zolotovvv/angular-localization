@@ -1,20 +1,13 @@
 {
-  "name": "angular-localization",
+  "name": "workpoint-angular-localization",
   "version": "1.5.1",
-  "homepage": "https://github.com/doshprompt/angular-localization",
-  "description": "angularjs localization done right",
+  "homepage": "https://github.com/zolotovvv/angular-localization",
+  "description": "angularjs localization done right for WorkPoint",
   "main": [
     "dist/angular-localization.js",
     "dist/angular-localization.css"
   ],
   "keywords": [
-    "angularjs",
-    "localization",
-    "i18n",
-    "l10n",
-    "internationalization",
-    "angular",
-    "ng"
   ],
   "authors": [
     "Rahul Doshi"
