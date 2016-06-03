@@ -1,6 +1,6 @@
 {
   "name": "angular-workpoint-localization",
-  "version": "1.5.2",
+  "version": "1.5.1",
   "description": "angularjs localization done right.",
   "main": [
     "dist/angular-localization.js",
