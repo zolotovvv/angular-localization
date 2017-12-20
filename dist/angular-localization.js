@@ -28,11 +28,11 @@
                     cookieStore;
 
 
-                CacheFactory('localeCache', {
+               /* CacheFactory('localeCache', {
                     deleteOnExpire: 'none', // Items will be deleted from this cache when they expire
                     storageMode: 'localStorage',
                     storagePrefix: 'btLocalDictionary'
-                });
+                });*/
 
 
                 if (localeConf.persistSelection && $injector.has('$cookieStore')) {
@@ -133,9 +133,7 @@
 
                             url += localeConf.fileExtension;
 
-                            $http.get(url, {
-                                cache: CacheFactory.get('localeCache')
-                            })
+                            $http.get(url)
                             .then(function (response) {
                                 var key,
                                     path = getPath(token),
